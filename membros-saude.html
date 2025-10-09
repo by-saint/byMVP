@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <title>Área de Membros — Saúde & Estética</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1000px;
+      margin: 16px auto;
+      padding: 12px;
+      line-height: 1.6;
+    }
+    #logout {
+      float: right;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background-color: #f0f0f0;
+      margin-bottom: 10px;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* Proporção 16:9 */
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
+      background: #000;
+      margin-top: 16px;
+      border-radius: 10px;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Botão de Logout -->
+  <button id="logout">Sair</button>
+
+  <!-- Títulos da Página -->
+  <h1>Área de Membros — Saúde & Estética</h1>
+  <div id="welcome">Verificando sua sessão...</div>
+
+  <!-- Seção da IA -->
+  <h2>Gere seu Plano Personalizado (IA Integrada)</h2>
+  <!-- CÓDIGO DO DIFY EMBUTIDO AQUI -->
+  <iframe
+    src="https://udify.app/chatbot/lbpbrmsV3IaH9e0X"
+    style="width: 100%; height: 700px; border:0; border-radius:10px;"
+    frameborder="0"
+    allow="microphone">
+  </iframe>
+
+  <!-- Seção da Aula -->
+  <h2 style="margin-top: 30px;">Aula Exemplo</h2>
+  <div class="video-container">
+    <!-- URL do YouTube embutida aqui -->
+    <iframe
+      src="https://www.youtube.com/embed/NzRo6GJgDc0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+<script type="module">
+  // Importa a biblioteca do Supabase
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+  // --- Suas chaves reais do Supabase inseridas aqui ---
+  const SUPABASE_URL = 'https://mrebmxvxlajqfgcpsvfv.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yZWJteHZ4bGFqcWZnY3BzdmZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk3Nzk0MjMsImV4cCI6MjA3NTM1NTQyM30.2oxAHxiYph6gvuIwunoypCJexHQbLExULpwqU0UWdDM';
+  // -----------------------------------------
+
+  // Inicializa a conexão com o Supabase
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // Função auxiliar para pegar elementos da página
+  const el = id => document.getElementById(id);
+
+  // Função principal que roda assim que a página carrega
+  (async () => {
+    try {
+      // 1. Verifica se o usuário está logado
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) throw sessionError;
+      
+      if (!session) {
+        // CORREÇÃO: Alterado de './login.html' para 'login.html'
+        window.location.href = 'login.html';
+        return;
+      }
+      el('welcome').innerText = 'Sessão verificada. Buscando seu perfil...';
+
+      // 2. Busca o perfil do usuário no banco de dados
+      const user = session.user;
+      const { data: profile, error } = await supabase.from('profiles').select('niche, email').eq('id', user.id).single();
+      
+      if (error || !profile) {
+        el('welcome').innerText = 'Erro ao buscar perfil. Redirecionando...';
+        await supabase.auth.signOut();
+        // CORREÇÃO: Alterado de './login.html' para 'login.html'
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // 3. Verifica se o usuário tem permissão para esta página ('saude')
+      if (profile.niche !== 'saude') {
+        if (profile.niche === 'estudos') {
+          // CORREÇÃO: Alterado de './membros-estudos.html' para 'membros-estudos.html'
+          window.location.href = 'membros-estudos.html';
+        } else {
+          // CORREÇÃO: Alterado de './login.html' para 'login.html'
+          window.location.href = 'login.html';
+        }
+        return;
+      }
+
+      // 4. Se tudo estiver certo, exibe a mensagem de boas-vindas
+      el('welcome').innerText = `Olá ${profile.email}, seja bem-vindo(a) ao espaço Saúde.`;
+
+    } catch (error) {
+        el('welcome').innerHTML = `<p style="color: red; font-weight: bold;">Ocorreu um erro: ${error.message}</p>`;
+        console.error("Erro na verificação da sessão:", error);
+    }
+  })();
+
+  // Define o que acontece quando o botão de logout é clicado
+  el('logout').onclick = async () => {
+    await supabase.auth.signOut();
+    // CORREÇÃO: Alterado de './index.html' para 'index.html'
+    window.location.href = 'index.html';
+  };
+</script>
+</body>
+</html>
