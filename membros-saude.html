@@ -1,143 +1,100 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <title>Área de Membros — Saúde & Estética</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 1000px;
-      margin: 16px auto;
-      padding: 12px;
-      line-height: 1.6;
-    }
-    #logout {
-      float: right;
-      cursor: pointer;
-      padding: 8px 12px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      background-color: #f0f0f0;
-      margin-bottom: 10px;
-    }
-    .video-container {
-      position: relative;
-      padding-bottom: 56.25%; /* Proporção 16:9 */
-      height: 0;
-      overflow: hidden;
-      max-width: 100%;
-      background: #000;
-      margin-top: 16px;
-      border-radius: 10px;
-    }
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-  </style>
+  <meta charset="utf-8" /><title>Plataforma de IA — Saúde & Estética</title><meta name="viewport" content="width=device-width,initial-scale=1" /><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"><style>html{scroll-behavior:smooth}body{font-family:'Poppins',sans-serif;background-color:#121212;color:#e0e0e0;margin:0;padding:40px 20px}.container{max-width:1000px;margin:0 auto}h1,h2,h3{color:#f0f0f0;text-align:center;margin-top:30px;margin-bottom:15px}footer{text-align:center;margin-top:60px;padding-top:20px;border-top:1px solid #333;color:#888;font-size:.9em}.form-wrapper,.results-wrapper{width:100%;max-width:800px;margin:0 auto}.form-container,.results-container{background-color:#1e1e1e;padding:40px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.5);border:1px solid #333}.form-group{margin-bottom:25px}label{display:block;margin-bottom:8px;font-weight:600;color:#bbb}input,select,textarea{width:100%;padding:12px;background-color:#2c2c2c;border:1px solid #444;border-radius:8px;color:#e0e0e0;font-size:16px;box-sizing:border-box}textarea{resize:vertical;min-height:100px}.goal-section{background:linear-gradient(145deg,#2a2a2a,#1a1a1a);border:1px solid #444;padding:30px;margin-bottom:40px;border-radius:10px;text-align:center}.goal-title{font-size:28px;font-weight:700;margin:0 0 15px 0;background:linear-gradient(90deg,#007BFF,#00C6FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}button[type=submit]{width:100%;padding:15px;background:linear-gradient(90deg,#007BFF,#0056b3);border:none;border-radius:8px;color:#fff;font-size:18px;font-weight:600;cursor:pointer}.iframe-container{border-radius:12px;overflow:hidden;height:700px}#prompt-output{background-color:#2c2c2c;border:1px solid #444;padding:20px;font-family:monospace;white-space:pre-wrap;word-wrap:break-word}.copy-button{display:block;width:200px;margin:10px auto;padding:10px 15px;background-color:#007BFF;color:white;border:none;border-radius:8px;cursor:pointer}.progress-section{margin-top:40px;padding:20px;background-color:#2c2c2c;border-radius:10px}.progress-bar-container{width:100%;background-color:#444;border-radius:10px;overflow:hidden}.progress-bar{width:0%;background-color:#007BFF;height:20px;transition:width .5s ease-in-out}.progress-labels{display:flex;justify-content:space-between;font-size:12px;color:#aaa;margin-top:5px}.countdown-container{text-align:center;margin-top:20px}.countdown-days{font-size:4rem;font-weight:700;color:#fff}.countdown-label{font-size:1rem;color:#aaa}.reset-button{background:none;border:1px solid #555;color:#aaa;padding:8px 15px;cursor:pointer;margin-top:20px;display:none}.text-glow-blue{text-shadow:0 0 8px rgba(0,198,255,.6)}.playlist-section{text-align:center;margin-top:40px}.playlist-btn{background-color:#007BFF;color:white;border:none;padding:12px 24px;font-size:1.1em;cursor:pointer}.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}</style>
 </head>
 <body>
-  <!-- Botão de Logout -->
-  <button id="logout">Sair</button>
-
-  <!-- Títulos da Página -->
-  <h1>Área de Membros — Saúde & Estética</h1>
-  <div id="welcome">Verificando sua sessão...</div>
-
-  <!-- Seção da IA -->
-  <h2>Gere seu Plano Personalizado (IA Integrada)</h2>
-  <!-- CÓDIGO DO DIFY EMBUTIDO AQUI -->
-  <iframe
-    src="https://udify.app/chatbot/lbpbrmsV3IaH9e0X"
-    style="width: 100%; height: 700px; border:0; border-radius:10px;"
-    frameborder="0"
-    allow="microphone">
-  </iframe>
-
-  <!-- Seção da Aula -->
-  <h2 style="margin-top: 30px;">Aula Exemplo</h2>
-  <div class="video-container">
-    <!-- URL do YouTube embutida aqui -->
-    <iframe
-      src="https://www.youtube.com/embed/NzRo6GJgDc0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen>
-    </iframe>
-  </div>
+<div class="container">
+    <div class="header">
+        <p id="welcome-msg">A carregar...</p>
+        <button id="logout-btn" class="reset-button" style="display: inline-block;">Sair</button>
+    </div>
+    <h1>Plataforma de IA para Saúde & Estética</h1>
+    <div id="ia-planejamento">
+        <div class="form-wrapper" id="form-wrapper" style="display: none;">
+             <div class="form-container">
+                <h1>Crie a sua Meta</h1>
+                <form id="ia-fit-form">
+                    <div class="goal-section"><h2 class="goal-title text-glow-blue">Qual é a sua Grande Meta?</h2><textarea id="objetivo" name="objetivo" required></textarea><div id="prazo-group" style="display: none;"><label for="prazo">Qual o prazo?</label><input type="text" id="prazo" name="prazo" required></div></div>
+                    <h3>Informações Básicas e Realidade Atual</h3>
+                    <div class="form-group"><label for="sexo">Sexo</label><select id="sexo" name="sexo" required><option value="" disabled selected>Selecione...</option><option value="masculino">Masculino</option><option value="feminino">Feminino</option></select></div>
+                    <div class="form-group"><label for="altura">Altura (m)</label><input type="text" inputmode="decimal" id="altura" name="altura" required></div>
+                    <div class="form-group"><label for="peso">Peso (kg)</label><input type="number" id="peso" name="peso" required></div>
+                    <div class="form-group"><label for="idade">Idade</label><input type="number" id="idade" name="idade" required></div>
+                    <div class="form-group"><label for="disponibilidade">Dias para treinar</label><input type="number" id="disponibilidade" name="disponibilidade" min="1" max="7" required></div>
+                    <div class="form-group"><label for="local_treino">Onde vai treinar?</label><select id="local_treino" name="local_treino" required><option value="" disabled selected>Selecione...</option><option value="Academia">Academia</option><option value="Casa">Em Casa</option></select></div>
+                    <div class="form-group"><label for="orcamento">Orçamento mensal (R$)</label><input type="number" id="orcamento" name="orcamento" required></div>
+                    <div class="form-group"><label for="uso_suplemento">Pretende usar suplementos?</label><select id="uso_suplemento" name="uso_suplemento" required><option value="" disabled selected>Selecione...</option><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
+                    <div class="form-group" id="suplementos-detalhes-group" style="display: none;"><label for="quais_suplementos">Quais?</label><textarea id="quais_suplementos" name="quais_suplementos"></textarea></div>
+                    <div class="form-group"><label for="nivel">Seu nível</label><select id="nivel" name="nivel" required><option value="" disabled selected>Selecione...</option><option value="iniciante">Iniciante</option><option value="intermediario">Intermediário</option><option value="avancado">Avançado</option></select></div>
+                    <button type="submit">Crie seu próprio caminho</button>
+                </form>
+            </div>
+        </div>
+        <div class="results-wrapper" id="results-wrapper" style="display: none;">
+             <div class="results-container">
+                <div class="progress-section">
+                    <h3>Sua Jornada</h3>
+                    <div class="progress-bar-container"><div id="progress-bar" class="progress-bar"></div></div>
+                    <div class="progress-labels"><span id="start-date-label"></span><span id="end-date-label"></span></div>
+                    <div class="countdown-container"><div id="countdown-days" class="countdown-days"></div><div class="countdown-label">dias para mudar de vida</div></div>
+                    <div style="text-align:center"><button id="reset-btn" class="reset-button">Resetar Meta</button></div>
+                </div>
+                <h2>Seu Plano de Ação</h2>
+                <pre id="prompt-output"></pre>
+                <button id="copy-btn" class="copy-button">Copiar Pedido</button>
+                <div class="playlist-section" id="playlist-section" style="display: none;"><p>Temos um roteiro de aulas para si!</p><a id="playlist-link" href="#" class="playlist-btn">Ver Roteiro de Aulas</a></div>
+                <h3>Comece sua Conversa com a IA</h3>
+                <div id="dify-container" class="iframe-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="module">
-  // Importa a biblioteca do Supabase
-  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const SUPABASE_URL = 'https://mrebmxvxlajqfgcpsvfv.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yZWJteHZ4bGFqcWZnY3BzdmZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk3Nzk0MjMsImV4cCI6MjA3NTM1NTQyM30.2oxAHxiYph6gvuIwunoypCJexHQbLExULpwqU0UWdDM';
+    const DIFY_APP_TOKEN = 'lbpbrmsV3IaH9e0X';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  // --- Suas chaves reais do Supabase inseridas aqui ---
-  const SUPABASE_URL = 'https://mrebmxvxlajqfgcpsvfv.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yZWJteHZ4bGFqcWZnY3BzdmZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk3Nzk0MjMsImV4cCI6MjA3NTM1NTQyM30.2oxAHxiYph6gvuIwunoypCJexHQbLExULpwqU0UWdDM';
-  // -----------------------------------------
+    // ... (Cole aqui as funções: getEaster, calculateEndDate, analyzeGoal, reorderVideos, displayProgress) ...
+    
+    async function initializePage() {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) { window.location.replace('login.html'); return; }
+        document.getElementById('welcome-msg').textContent = `Bem-vindo(a), ${user.email}`;
 
-  // Inicializa a conexão com o Supabase
-  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  // Função auxiliar para pegar elementos da página
-  const el = id => document.getElementById(id);
-
-  // Função principal que roda assim que a página carrega
-  (async () => {
-    try {
-      // 1. Verifica se o usuário está logado
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-      if (sessionError) throw sessionError;
-      
-      if (!session) {
-        // CORREÇÃO: Alterado de './login.html' para 'login.html'
-        window.location.href = 'login.html';
-        return;
-      }
-      el('welcome').innerText = 'Sessão verificada. Buscando seu perfil...';
-
-      // 2. Busca o perfil do usuário no banco de dados
-      const user = session.user;
-      const { data: profile, error } = await supabase.from('profiles').select('niche, email').eq('id', user.id).single();
-      
-      if (error || !profile) {
-        el('welcome').innerText = 'Erro ao buscar perfil. Redirecionando...';
-        await supabase.auth.signOut();
-        // CORREÇÃO: Alterado de './login.html' para 'login.html'
-        window.location.href = 'login.html';
-        return;
-      }
-
-      // 3. Verifica se o usuário tem permissão para esta página ('saude')
-      if (profile.niche !== 'saude') {
-        if (profile.niche === 'estudos') {
-          // CORREÇÃO: Alterado de './membros-estudos.html' para 'membros-estudos.html'
-          window.location.href = 'membros-estudos.html';
+        const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+        if (!profile) { alert('Perfil não encontrado!'); await supabase.auth.signOut(); window.location.replace('login.html'); return; }
+        
+        if (profile.goal_end_date) {
+            displayProgress(new Date(profile.goal_start_date), new Date(profile.goal_end_date));
+            document.getElementById('prompt-output').textContent = profile.goal_prompt;
+            if (profile.goal_type) document.getElementById('playlist-section').style.display = 'block';
         } else {
-          // CORREÇÃO: Alterado de './login.html' para 'login.html'
-          window.location.href = 'login.html';
+            document.getElementById('form-wrapper').style.display = 'block';
         }
-        return;
-      }
 
-      // 4. Se tudo estiver certo, exibe a mensagem de boas-vindas
-      el('welcome').innerText = `Olá ${profile.email}, seja bem-vindo(a) ao espaço Saúde.`;
-
-    } catch (error) {
-        el('welcome').innerHTML = `<p style="color: red; font-weight: bold;">Ocorreu um erro: ${error.message}</p>`;
-        console.error("Erro na verificação da sessão:", error);
+        const difyContainer = document.getElementById('dify-container');
+        if (difyContainer && !difyContainer.querySelector('iframe')) {
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://udify.app/chatbot/${DIFY_APP_TOKEN}`;
+            iframe.style.cssText = 'width:100%;height:100%;border:none;';
+            iframe.allow = 'microphone';
+            difyContainer.appendChild(iframe);
+            iframe.onload = () => {
+              iframe.contentWindow.postMessage({
+                type: 'dify-chatbot-set-system-variable', data: { conversation_id: profile.conversation_id }
+              }, 'https://udify.app');
+            };
+        }
     }
-  })();
+    // ... (Cole aqui o resto da lógica dos eventos de clique e submissão) ...
+    // O seu código para submit agora deve fazer um `supabase.from('profiles').update(...)` em vez de usar `localStorage`.
+    // O seu botão de reset deve fazer um update para `null` nos campos da meta no Supabase.
 
-  // Define o que acontece quando o botão de logout é clicado
-  el('logout').onclick = async () => {
-    await supabase.auth.signOut();
-    // CORREÇÃO: Alterado de './index.html' para 'index.html'
-    window.location.href = 'index.html';
-  };
+    initializePage();
 </script>
 </body>
 </html>
