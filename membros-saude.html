@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="utf-8" />
-  <title>Plataforma de IA — Saúde & Estética</title>
+  <title>Plataforma de IA e Videoaulas — Saúde & Estética</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,67 +11,76 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Poppins', sans-serif; background-color: #121212; color: #E0E0E0; margin: 0; padding: 40px 20px; }
     .container { max-width: 1000px; margin: 0 auto; }
-    h1, h2, h3 { color: #f0f0f0; text-align: center; margin-top: 30px; margin-bottom: 15px; }
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
-    #welcome-msg { color: #bbb; margin-right: 20px; }
-    .tab-buttons { display: flex; justify-content: center; align-items: center; margin-bottom: 20px; gap: 10px; flex-wrap: wrap; width: 100%; }
-    .tab-button, .nav-arrow { background-color: #333; color: #fff; border: none; padding: 12px 25px; cursor: pointer; font-size: 1.1em; border-radius: 8px; transition: background-color 0.3s; }
+    h1.main-title { text-align: center; color: #FFFFFF; margin-bottom: 30px; font-size: 2.5rem; }
+    p.intro { text-align: center; font-size: 1.1em; color: #b0b0b0; margin-bottom: 40px; }
+    h2, h3 { color: #f0f0f0; text-align: center; margin-top: 30px; margin-bottom: 15px; }
+    footer { text-align: center; margin-top: 60px; padding-top: 20px; border-top: 1px solid #333; color: #888; font-size: 0.9em; }
+    .tab-buttons { display: flex; justify-content: center; align-items: center; margin-bottom: 20px; gap: 10px; flex-wrap: wrap; }
+    .tab-button { background-color: #333; color: #fff; border: none; padding: 12px 25px; cursor: pointer; font-size: 1.1em; border-radius: 8px; transition: background-color 0.3s; }
+    .tab-button:hover { background-color: #555; }
     .tab-button.active { background-color: #007BFF; }
-    .nav-arrow { width: 45px; height: 45px; padding: 0; font-size: 1.5em; border-radius: 50%; }
     .tab-content { display: none; padding-top: 20px; }
+    .tab-content.active { display: block; }
     .form-wrapper, .results-wrapper { width: 100%; max-width: 800px; margin: 0 auto; }
     .form-container, .results-container { background-color: #1E1E1E; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); border: 1px solid #333; }
+    .form-container h1 { font-size: 1.8rem; margin-bottom: 30px; }
     .form-group { margin-bottom: 25px; }
     label { display: block; margin-bottom: 8px; font-weight: 600; color: #BBBBBB; }
-    input, select, textarea { width: 100%; padding: 12px; background-color: #2C2C2C; border: 1px solid #444; border-radius: 8px; color: #E0E0E0; font-size: 16px; box-sizing: border-box; }
+    input, select, textarea { width: 100%; padding: 12px; background-color: #2C2C2C; border: 1px solid #444; border-radius: 8px; color: #E0E0E0; font-size: 16px; box-sizing: border-box; transition: border-color 0.3s, box-shadow 0.3s; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #007BFF; box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); }
     textarea { resize: vertical; min-height: 100px; }
     .goal-section { background: linear-gradient(145deg, #2a2a2a, #1a1a1a); border: 1px solid #444; padding: 30px; margin-bottom: 40px; border-radius: 10px; text-align: center; }
-    .goal-title { font-size: 28px; font-weight: 700; background: linear-gradient(90deg, #007BFF, #00C6FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    button[type="submit"] { width: 100%; padding: 15px; background: linear-gradient(90deg, #007BFF, #0056b3); border: none; border-radius: 8px; color: #FFFFFF; font-size: 18px; font-weight: 600; cursor: pointer; }
-    .iframe-container { border-radius: 12px; overflow: hidden; height: 700px; }
-    #prompt-output { background-color: #2c2c2c; border: 1px solid #444; padding: 20px; font-family: monospace; white-space: pre-wrap; word-wrap: break-word; border-radius: 8px; }
-    .copy-button { display: block; width: 200px; margin: 20px auto 0 auto; padding: 10px 15px; background-color: #007BFF; color: white; border: none; border-radius: 8px; cursor: pointer; }
+    .goal-section .goal-title { font-size: 28px; font-weight: 700; margin: 0 0 15px 0; background: linear-gradient(90deg, #007BFF, #00C6FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .goal-section .goal-subtitle { font-size: 16px; color: #AAAAAA; margin-bottom: 20px; }
+    button[type="submit"] { width: 100%; padding: 15px; background: linear-gradient(90deg, #007BFF, #0056b3); border: none; border-radius: 8px; color: #FFFFFF; font-size: 18px; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+    button[type="submit"]:hover { transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0, 123, 255, 0.3); }
+    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; margin-top: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    .iframe-container { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5); height: 700px; }
+    #prompt-output { background-color: #2c2c2c; border: 1px solid #444; border-radius: 8px; padding: 20px; font-family: monospace; white-space: pre-wrap; word-wrap: break-word; color: #e0e0e0; margin: 20px 0; max-height: 300px; overflow-y: auto; }
+    .copy-button { display: block; width: 200px; margin: 10px auto; padding: 10px 15px; background-color: #007BFF; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: background-color 0.3s; }
+    .copy-button:hover { background-color: #0056b3; }
     .progress-section { margin-top: 40px; padding: 20px; background-color: #2C2C2C; border-radius: 10px; }
     .progress-bar-container { width: 100%; background-color: #444; border-radius: 10px; overflow: hidden; }
-    .progress-bar { width: 0%; background-color: #007BFF; height: 20px; transition: width 0.5s ease-in-out; }
+    .progress-bar { width: 0%; background-color: #007BFF; height: 20px; text-align: center; line-height: 20px; color: white; font-size: 12px; transition: width 0.5s ease-in-out; }
     .progress-labels { display: flex; justify-content: space-between; font-size: 12px; color: #aaa; margin-top: 5px; }
     .countdown-container { text-align: center; margin-top: 20px; }
     .countdown-days { font-size: 4rem; font-weight: 700; color: #fff; line-height: 1; }
     .countdown-label { font-size: 1rem; color: #aaa; }
-    .reset-button { background: none; border: 1px solid #555; color: #aaa; padding: 8px 15px; cursor: pointer; display: inline-block; border-radius: 6px; transition: background-color 0.3s; }
-    .reset-button:hover { background-color: #444; }
-    .text-glow-blue { text-shadow: 0 0 8px rgba(0, 198, 255, 0.6); }
-    .playlist-section { text-align: center; margin-top: 40px; }
-    .playlist-btn { background-color: #007BFF; color: white; border: none; padding: 12px 24px; font-size: 1.1em; cursor: pointer; border-radius: 8px; }
-    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 25px; border-radius: 12px; }
-    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    .reset-button { background: none; border: 1px solid #555; color: #aaa; padding: 8px 15px; border-radius: 6px; cursor: pointer; margin-top: 20px; display: none; }
+    .reset-button:hover { background-color: #333; color: #fff; }
+    .text-glow-blue { text-shadow: 0 0 8px rgba(0, 198, 255, 0.6), 0 0 12px rgba(0, 123, 255, 0.4); }
+    .playlist-section { text-align: center; margin: 40px 0; padding: 20px; background-color: #252525; border-radius: 10px; border: 1px solid #444; }
+    .playlist-btn { background-color: #007BFF; color: white; border: none; border-radius: 8px; padding: 12px 24px; font-size: 1.1em; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+    .playlist-btn:hover { background-color: #0056b3; transform: translateY(-2px); }
+    .nav-arrow { background-color: #444; color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.5em; line-height: 40px; text-align: center; transition: background-color 0.3s; }
+    .nav-arrow:hover { background-color: #555; }
   </style>
 </head>
 <body>
+
 <div class="container">
-    <div class="header">
-        <p id="welcome-msg">A carregar...</p>
-        <button id="logout-btn" class="reset-button">Sair</button>
-    </div>
+    <h1 class="main-title">Plataforma de IA para Saúde & Estética</h1>
+    <p class="intro">Navegue entre a nossa IA para planos personalizados e as videoaulas exclusivas.</p>
 
     <div class="tab-buttons">
         <button class="nav-arrow" id="prev-tab-btn">‹</button>
-        <button class="tab-button" id="tab-btn-ia">Plano & IA</button>
+        <button class="tab-button" id="tab-btn-ia">IA Integrada</button>
         <button class="tab-button" id="tab-btn-aulas">Videoaulas</button>
         <button class="nav-arrow" id="next-tab-btn">›</button>
     </div>
 
     <div id="ia-planejamento" class="tab-content">
-        <div class="form-wrapper" id="form-wrapper" style="display: none;">
+        <div class="form-wrapper" id="form-wrapper">
              <div class="form-container">
-                <h1>Crie a sua Meta</h1>
+                <h1>Plano de Ação Personalizado</h1>
                 <form id="ia-fit-form">
                     <div class="goal-section">
                         <h2 class="goal-title text-glow-blue">Qual é a sua Grande Meta?</h2>
                         <textarea id="objetivo" name="objetivo" placeholder="Escreva aqui seu principal objetivo..." required></textarea>
                         <div id="prazo-group" class="form-group" style="margin-top: 20px; text-align: left; display: none;">
                             <label for="prazo">Qual o prazo para esta meta?</label>
-                            <input type="text" id="prazo" name="prazo" placeholder="Ex: 3 meses, até o verão..." required>
+                            <input type="text" id="prazo" name="prazo" placeholder="Ex: 3 meses, até o verão, 90 dias..." required>
                         </div>
                     </div>
                     <h3>Informações Básicas e Realidade Atual</h3>
@@ -81,7 +90,10 @@
                     <div class="form-group"><label for="idade">Idade</label><input type="number" id="idade" name="idade" placeholder="Ex: 25" required></div>
                     <div class="form-group"><label for="disponibilidade">Dias por semana para treinar</label><input type="number" id="disponibilidade" name="disponibilidade" placeholder="Ex: 4" min="1" max="7" required></div>
                     <div class="form-group"><label for="local_treino">Onde vai treinar?</label><select id="local_treino" name="local_treino" required><option value="" disabled selected>Selecione...</option><option value="Academia">Academia</option><option value="Casa">Em Casa</option></select></div>
-                    <div class="form-group"><label for="orcamento">Orçamento mensal para dieta (R$)</label><input type="number" id="orcamento" name="orcamento" placeholder="Ex: 500" required></div>
+                    <div class="form-group">
+                        <label for="orcamento">Orçamento mensal para dieta (R$)</label>
+                        <input type="text" inputmode="decimal" id="orcamento" name="orcamento" placeholder="Ex: 500 ou 500,50" required>
+                    </div>
                     <div class="form-group"><label for="uso_suplemento">Pretende usar suplementos?</label><select id="uso_suplemento" name="uso_suplemento" required><option value="" disabled selected>Selecione...</option><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
                     <div class="form-group" id="suplementos-detalhes-group" style="display: none;"><label for="quais_suplementos">Quais suplementos?</label><textarea id="quais_suplementos" name="quais_suplementos" placeholder="Ex: Whey, Creatina..."></textarea></div>
                     <div class="form-group"><label for="nivel">Seu nível em atividades físicas</label><select id="nivel" name="nivel" required><option value="" disabled selected>Selecione...</option><option value="iniciante">Iniciante</option><option value="intermediario">Intermediário</option><option value="avancado">Avançado</option></select></div>
@@ -89,203 +101,190 @@
                 </form>
             </div>
         </div>
+
         <div class="results-wrapper" id="results-wrapper" style="display: none;">
              <div class="results-container">
-                <h2>Seu Plano de Ação</h2>
+                <h2 style="color: #00C6FF;">Comece o seu Plano!</h2>
+                <p style="text-align: center; margin-bottom: 20px;">O seu pedido personalizado está pronto. Copie o texto abaixo e cole na janela da IA para começar.</p>
                 <pre id="prompt-output"></pre>
                 <button id="copy-btn" class="copy-button">Copiar Pedido</button>
                 
-                <h3>Comece sua Conversa com a IA</h3>
-                <p style="text-align: center; margin-top: -10px; margin-bottom: 20px; color: #bbb;">Copie o pedido acima e cole no chat para receber o seu plano personalizado.</p>
-                <div id="dify-container" class="iframe-container"></div>
+                <h3 style="margin-top: 30px;">Copie e cole o texto acima e comece sua jornada</h3>
+                <div class="iframe-container" style="display: block;">
+                    <iframe src="https://udify.app/chatbot/lbpbrmsV3IaH9e0X" style="width: 100%; height: 100%; border: none;" allow="microphone"></iframe>
+                </div>
 
                 <div class="playlist-section" id="playlist-section" style="display: none;">
-                    <h4>Roteiro de Aulas Sugerido</h4>
-                    <p style="color: #bbb; margin-top: -10px;">Com base na sua meta, preparámos um roteiro para acelerar os seus resultados.</p>
+                    <p>Com base na sua meta, preparámos um roteiro de aulas para acelerar os seus resultados.</p>
                     <button id="playlist-btn" class="playlist-btn">Ver seu Roteiro de Aulas</button>
                 </div>
-                
+
                 <div class="progress-section">
-                    <h3>Sua Jornada</h3>
-                    <div class="progress-bar-container"><div id="progress-bar" class="progress-bar"></div></div>
-                    <div class="progress-labels"><span id="start-date-label"></span><span id="end-date-label"></span></div>
-                    <div class="countdown-container"><div id="countdown-days" class="countdown-days"></div><div class="countdown-label">dias para mudar de vida</div></div>
-                    <div style="text-align:center"><button id="reset-btn" class="reset-button">Definir Nova Meta</button></div>
+                    <h3>Barra de Progresso da Meta</h3>
+                    <div class="progress-bar-container">
+                        <div id="progress-bar" class="progress-bar"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span id="start-date-label">Início</span>
+                        <span id="end-date-label">Fim</span>
+                    </div>
+                    <div class="countdown-container">
+                        <div id="countdown-days" class="countdown-days">0</div>
+                        <div class="countdown-label">dias para mudar de vida</div>
+                    </div>
+                    <div style="text-align:center"><button id="reset-btn" class="reset-button">Resetar Meta</button></div>
                 </div>
             </div>
         </div>
     </div>
+
     <div id="video-aulas" class="tab-content">
         <h2>Nossas Aulas</h2>
-        <div id="video-block-1"><h3>Aula 1: Introdução ao Treino Estético</h3><div class="video-container"><iframe src="https://www.youtube.com/embed/NzRo6GJgDc0" allowfullscreen></iframe></div></div>
-        <div id="video-block-2"><h3>Aula 2: Fundamentos da Nutrição</h3><div class="video-container"><iframe src="https://www.youtube.com/embed/_TRvuAD2A1I" allowfullscreen></iframe></div></div>
-        <div id="video-block-3"><h3>Aula 3: Desvendando a Hipertrofia</h3><div class="video-container"><iframe src="https://www.youtube.com/embed/jufiwAs6HEI" allowfullscreen></iframe></div></div>
+        <div id="video-block-1">
+            <h3>Aula 1: Introdução ao Treino Estético</h3>
+            <div class="video-container"><iframe src="https://www.youtube.com/embed/NzRo6GJgDc0" allowfullscreen></iframe></div>
+        </div>
+        <div id="video-block-2">
+            <h3>Aula 2: Fundamentos da Nutrição</h3>
+            <div class="video-container"><iframe src="https://www.youtube.com/embed/_TRvuAD2A1I" allowfullscreen></iframe></div>
+        </div>
+        <div id="video-block-3">
+            <h3>Aula 3: Desvendando a Hipertrofia</h3>
+            <div class="video-container"><iframe src="https://www.youtube.com/embed/jufiwAs6HEI" allowfullscreen></iframe></div>
+        </div>
     </div>
+
+    <footer>
+        <p>© 2025 Seu SaaS. Todos os direitos reservados.</p>
+    </footer>
 </div>
 
-<script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-    const SUPABASE_URL = 'https://mrebmxvxlajqfgcpsvfv.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yZWJteHZ4bGFqcWZnY3BzdmZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk3Nzk0MjMsImV4cCI6MjA3NTM1NTQyM30.2oxAHxiYph6gvuIwunoypCJexHQbLExULpwqU0UWdDM';
-    const DIFY_APP_TOKEN = 'lbpbrmsV3IaH9e0X';
-    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    // --- FUNÇÕES DE LÓGICA ---
+<script>
     function getEaster(year) { const a=year%19,b=Math.floor(year/100),c=year%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),month=Math.floor((h+l-7*m+114)/31),day=((h+l-7*m+114)%31)+1; return new Date(year, month - 1, day); }
-    function calculateEndDate(prazoText) { const now = new Date(); const year = now.getFullYear(); let prazoLower = prazoText.toLowerCase(); let match = prazoLower.match(/(\d+)\s+mes(es)?/); if (match) { let d=new Date(); d.setMonth(d.getMonth()+parseInt(match[1],10)); return d; } match = prazoLower.match(/(\d+)\s+dia(s)?/); if (match) { let d=new Date(); d.setDate(d.getDate()+parseInt(match[1],10)); return d; } if (prazoLower.includes('verao')||prazoLower.includes('verão')) { const s=new Date(year,11,21); return now<s?s:new Date(year+1,11,21); } if (prazoLower.includes('natal')) { const c=new Date(year,11,25); return now<c?c:new Date(year+1,11,25); } if (prazoLower.includes('ano novo')) { return new Date(year+1,0,1); } if (prazoLower.includes('pascoa')||prazoLower.includes('páscoa')) { const e=getEaster(year); return now<e?e:getEaster(year+1); } return null; }
-    function displayProgress(startDate, endDate) { const now = new Date(); now.setHours(0,0,0,0); const sDate = new Date(startDate); sDate.setHours(0,0,0,0); const eDate = new Date(endDate); eDate.setHours(0,0,0,0); const totalDuration=eDate.getTime()-sDate.getTime(), elapsedDuration=now.getTime()-sDate.getTime(); const daysRemaining=Math.ceil((eDate-now)/(1000*60*60*24)); let progressPercentage=(elapsedDuration/totalDuration)*100; if(progressPercentage<0)progressPercentage=0; if(progressPercentage>100)progressPercentage=100; document.getElementById('progress-bar').style.width=`${progressPercentage}%`; document.getElementById('start-date-label').textContent=sDate.toLocaleDateString('pt-BR'); document.getElementById('end-date-label').textContent=eDate.toLocaleDateString('pt-BR'); document.getElementById('countdown-days').textContent=daysRemaining>=0?daysRemaining:0; document.getElementById('form-wrapper').style.display='none'; document.getElementById('results-wrapper').style.display='block'; document.getElementById('reset-btn').style.display='inline-block'; }
-    function analyzeGoal(text) {
-        const lowerText = text.toLowerCase();
-        const emagrecerKeywords = ['emagrecer', 'perder peso', 'secar', 'definir', 'perder gordura', 'definição', 'emagrecimento'];
-        const musculoKeywords = ['ganhar musculo', 'hipertrofia', 'sheipado', 'crescer', 'massa muscular', 'ficar forte', 'músculo'];
-        const hasEmagrecer = emagrecerKeywords.some(keyword => lowerText.includes(keyword));
-        const hasMusculo = musculoKeywords.some(keyword => lowerText.includes(keyword));
-        if (hasEmagrecer && !hasMusculo) return 'emagrecer';
-        if (!hasEmagrecer && hasMusculo) return 'musculo';
-        return 'ambos'; // Se tiver ambos, ou nenhum, o roteiro geral é o mais seguro
+
+    function calculateEndDate(prazoText) {
+        const now = new Date();
+        const year = now.getFullYear();
+        let prazoLower = prazoText.toLowerCase();
+
+        // Novo: Verifica por "final do ano" ou "fim de ano"
+        if (prazoLower.includes('final do ano') || prazoLower.includes('fim de ano')) {
+            return new Date(year, 11, 31);
+        }
+
+        let match = prazoLower.match(/(\d+)\s+mes(es)?/);
+        if (match) { let d=new Date(); d.setMonth(d.getMonth()+parseInt(match[1],10)); return d; }
+        match = prazoLower.match(/(\d+)\s+dia(s)?/);
+        if (match) { let d=new Date(); d.setDate(d.getDate()+parseInt(match[1],10)); return d; }
+        if (prazoLower.includes('verao')||prazoLower.includes('verão')) { const s=new Date(year,11,21); return now<s?s:new Date(year+1,11,21); }
+        if (prazoLower.includes('natal')) { const c=new Date(year,11,25); return now<c?c:new Date(year+1,11,25); }
+        if (prazoLower.includes('ano novo')) { return new Date(year+1,0,1); }
+        if (prazoLower.includes('pascoa')||prazoLower.includes('páscoa')) { const e=getEaster(year); return now<e?e:getEaster(year+1); }
+        return null;
     }
+
+    function displayProgress(startDate, endDate) { const now = new Date(); now.setHours(0,0,0,0); const sDate = new Date(startDate); sDate.setHours(0,0,0,0); const eDate = new Date(endDate); eDate.setHours(0,0,0,0); const totalDuration=eDate.getTime()-sDate.getTime(), elapsedDuration=now.getTime()-sDate.getTime(); const daysRemaining=Math.ceil((eDate-now)/(1000*60*60*24)); let progressPercentage=(elapsedDuration/totalDuration)*100; if(progressPercentage<0)progressPercentage=0; if(progressPercentage>100)progressPercentage=100; document.getElementById('progress-bar').style.width=`${progressPercentage}%`; document.getElementById('start-date-label').textContent=sDate.toLocaleDateString('pt-BR'); document.getElementById('end-date-label').textContent=eDate.toLocaleDateString('pt-BR'); document.getElementById('countdown-days').textContent=daysRemaining>=0?daysRemaining:0; document.getElementById('form-wrapper').style.display='none'; document.getElementById('results-wrapper').style.display='block'; document.getElementById('reset-btn').style.display='inline-block'; }
+    function analyzeGoal(text) { const lowerText=text.toLowerCase(),e=['emagrecer','perder peso','secar','definir','perder gordura','definição'],m=['ganhar musculo','hipertrofia','sheipado','crescer','massa muscular','ficar forte']; const hasE=e.some(k=>lowerText.includes(k)),hasM=m.some(k=>lowerText.includes(k)); if(hasE&&!hasM)return 'emagrecer'; if(!hasE&&hasM)return 'musculo'; return 'ambos'; }
     function reorderVideos(order) { const c=document.getElementById('video-aulas'),v={1:document.getElementById('video-block-1'),2:document.getElementById('video-block-2'),3:document.getElementById('video-block-3')}; Object.values(v).forEach(b=>b.remove()); order.forEach(i=>c.appendChild(v[i])); }
 
-    document.addEventListener('DOMContentLoaded', async () => {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) { window.location.replace('login.html'); return; }
-        document.getElementById('welcome-msg').textContent = `Bem-vindo(a), ${user.email}`;
-
-        const { data: profile, error } = await supabase.from('profiles').select('*').eq('id', user.id).single();
-        if (error || !profile) { alert('Erro ao buscar perfil.'); await supabase.auth.signOut(); window.location.replace('login.html'); return; }
-        
-        if (profile.goal_end_date) {
-            displayProgress(new Date(profile.goal_start_date), new Date(profile.goal_end_date));
-            document.getElementById('prompt-output').textContent = profile.goal_prompt;
-            if (profile.goal_type) document.getElementById('playlist-section').style.display = 'block';
-        } else {
-            document.getElementById('form-wrapper').style.display = 'block';
-        }
-
-        const difyContainer = document.getElementById('dify-container');
-        if (difyContainer && profile.conversation_id) {
-            const iframe = document.createElement('iframe');
-            iframe.src = `https://udify.app/chatbot/${DIFY_APP_TOKEN}`;
-            iframe.style.cssText = 'width:100%;height:100%;border:none;';
-            iframe.allow = 'microphone';
-            difyContainer.appendChild(iframe);
-            iframe.onload = () => {
-              iframe.contentWindow.postMessage({
-                type: 'dify-chatbot-set-system-variable', data: { conversation_id: profile.conversation_id }
-              }, 'https://udify.app');
-            };
-        }
-        
+    document.addEventListener('DOMContentLoaded', () => {
         const tabButtons = Array.from(document.querySelectorAll('.tab-button'));
+        const prevTabBtn = document.getElementById('prev-tab-btn');
+        const nextTabBtn = document.getElementById('next-tab-btn');
         let currentTabIndex = 0;
+
         function switchTab(index) {
             if (!tabButtons[index]) return;
-            document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
-            tabButtons.forEach(b => b.classList.remove('active'));
-            const btn = tabButtons[index];
-            btn.classList.add('active');
-            const tabName = btn.id === 'tab-btn-ia' ? 'ia-planejamento' : 'video-aulas';
-            document.getElementById(tabName).style.display = 'block';
+            document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            const buttonToActivate = tabButtons[index];
+            buttonToActivate.classList.add('active');
+            const tabNameToActivate = buttonToActivate.id === 'tab-btn-ia' ? 'ia-planejamento' : 'video-aulas';
+            document.getElementById(tabNameToActivate).style.display = 'block';
             currentTabIndex = index;
         }
-        tabButtons.forEach((b, i) => b.addEventListener('click', () => switchTab(i)));
-        document.getElementById('next-tab-btn').addEventListener('click', () => switchTab((currentTabIndex + 1) % tabButtons.length));
-        document.getElementById('prev-tab-btn').addEventListener('click', () => switchTab((currentTabIndex - 1 + tabButtons.length) % tabButtons.length));
+
+        tabButtons.forEach((button, index) => {
+            button.addEventListener('click', () => switchTab(index));
+        });
+
+        nextTabBtn.addEventListener('click', () => {
+            const nextIndex = (currentTabIndex + 1) % tabButtons.length;
+            switchTab(nextIndex);
+        });
+
+        prevTabBtn.addEventListener('click', () => {
+            const prevIndex = (currentTabIndex - 1 + tabButtons.length) % tabButtons.length;
+            switchTab(prevIndex);
+        });
+
         switchTab(0);
-        
+
+        const savedStartDate = localStorage.getItem('goalStartDate');
+        if (savedStartDate && localStorage.getItem('goalEndDate')) {
+            displayProgress(new Date(savedStartDate), new Date(localStorage.getItem('goalEndDate')));
+            const savedPrompt = localStorage.getItem('goalPrompt');
+            if(savedPrompt) document.getElementById('prompt-output').textContent=savedPrompt;
+            const savedGoalType = localStorage.getItem('goalType');
+            if(savedGoalType) document.getElementById('playlist-section').style.display='block';
+        }
+
         document.getElementById('objetivo').addEventListener('input', function(){ document.getElementById('prazo-group').style.display=this.value.trim()!==''?'block':'none'; });
         document.getElementById('uso_suplemento').addEventListener('change', function(){ document.getElementById('suplementos-detalhes-group').style.display=this.value==='Sim'?'block':'none'; if(this.value!=='Sim')document.getElementById('quais_suplementos').value=''; });
         
-        document.getElementById('ia-fit-form').addEventListener('submit', async function(event) {
+        document.getElementById('ia-fit-form').addEventListener('submit', function(event) {
             event.preventDefault();
             const formElements = event.target.elements;
             const prazoText = formElements.prazo.value;
             const endDate = calculateEndDate(prazoText);
-            if (!endDate) { alert("Não consegui entender o prazo da sua meta."); return; }
+            if (!endDate) { alert("Não consegui entender o prazo da sua meta. Tente usar termos como '3 meses', '90 dias', 'até o natal', 'fim de ano', etc."); return; }
 
             const startDate = new Date(); startDate.setHours(0,0,0,0);
             const objetivoText = formElements.objetivo.value;
             const goalType = analyzeGoal(objetivoText);
-
+            localStorage.setItem('goalType', goalType);
+            document.getElementById('playlist-section').style.display = 'block';
+            
             const daysRemaining = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
-            const prazoOtimizado = `${daysRemaining} dias (originalmente: ${prazoText})`;
+            const prazoOtimizado = `${daysRemaining} dias (meta: ${prazoText})`;
 
-            const formData={objetivo:objetivoText,prazo:prazoOtimizado,sexo:formElements.sexo.value,altura:formElements.altura.value,peso:formElements.peso.value,idade:formElements.idade.value,disponibilidade:formElements.disponibilidade.value,local_treino:formElements.local_treino.value,orcamento:formElements.orcamento.value,uso_suplemento:formElements.uso_suplemento.value,quais_suplementos:formElements.quais_suplementos.value,nivel:formElements.nivel.value};
+            localStorage.setItem('goalStartDate', startDate.toISOString());
+            localStorage.setItem('goalEndDate', endDate.toISOString());
+
+            const formData={objetivo:objetivoText,prazo:prazoOtimizado,sexo:formElements.sexo.value,altura:formElements.altura.value,peso:formElements.peso.value,idade:formElements.idade.value,disponibilidade:formElements.disponibilidade.value,local_treino:formElements.local_treino.value,orcamento:formElements.orcamento.value.replace(',', '.'),uso_suplemento:formElements.uso_suplemento.value,quais_suplementos:formElements.quais_suplementos.value,nivel:formElements.nivel.value};
             let suplementoInfo=`Pretende usar suplementos: ${formData.uso_suplemento}.`;
             if(formData.uso_suplemento==='Sim'&&formData.quais_suplementos){suplementoInfo+=` Os suplementos são: ${formData.quais_suplementos}.`;}else if(formData.uso_suplemento==='Sim'){suplementoInfo+=` Ainda não decidi quais.`;}
-            
-            const initialMessage = `
-**GERAR PLANO DE AÇÃO COMPLETO**
+            const initialMessage=`Minha meta é: ${formData.objetivo}, com um prazo de ${formData.prazo}. Tenho ${formData.idade} anos, peso ${formData.peso}kg e meço ${formData.altura}m. Meu sexo é ${formData.sexo}, meu nível de experiência é ${formData.nivel}, vou treinar na ${formData.local_treino} e tenho disponibilidade para treinar ${formData.disponibilidade} dias por semana. Meu orçamento mensal para dieta e suplementos é de R$${formData.orcamento}. ${suplementoInfo} Por favor, gere meu plano personalizado com base nisso.`.trim();
+            localStorage.setItem('goalPrompt', initialMessage);
+            document.getElementById('prompt-output').textContent = initialMessage;
 
-**INSTRUÇÃO:** Aja como um coach de elite e crie um plano de ação detalhado com base nos seguintes dados do utilizador:
-
-**- Objetivo Principal:** ${formData.objetivo}
-**- Prazo para a Meta:** ${formData.prazo}
-
-**- Perfil do Utilizador:**
-  - Idade: ${formData.idade} anos
-  - Sexo: ${formData.sexo}
-  - Peso: ${formData.peso} kg
-  - Altura: ${formData.altura} m
-  - Nível de Experiência: ${formData.nivel}
-
-**- Logística e Recursos:**
-  - Disponibilidade: ${formData.disponibilidade} dias/semana
-  - Local de Treino: ${formData.local_treino}
-  - Orçamento Mensal (Dieta/Sups): R$${formData.orcamento}
-  - ${suplementoInfo}
-
-**TAREFA:** Crie um plano prescritivo e completo, abordando treino, dieta e recomendações de estilo de vida para atingir a meta no prazo estipulado.
-`.trim();
-
-            const { error } = await supabase.from('profiles').update({
-                goal_start_date: startDate.toISOString(),
-                goal_end_date: endDate.toISOString(),
-                goal_prompt: initialMessage,
-                goal_type: goalType,
-            }).eq('id', user.id);
-
-            if (error) {
-                alert("Erro ao salvar a sua meta: " + error.message);
-            } else {
-                document.getElementById('prompt-output').textContent = initialMessage;
-                document.getElementById('playlist-section').style.display = 'block';
-                displayProgress(startDate, endDate);
-            }
+            displayProgress(startDate, endDate);
         });
 
         document.getElementById('playlist-btn').addEventListener('click', function() {
-            let videoOrder;
-            if(profile.goal_type==='emagrecer'){videoOrder=[3,2,1];}else if(profile.goal_type==='musculo'){videoOrder=[3,1,2];}else{videoOrder=[1,2,3];}
+            const goalType=localStorage.getItem('goalType'); let videoOrder;
+            if(goalType==='emagrecer'){videoOrder=[3,2,1];}else if(goalType==='musculo'){videoOrder=[3,1,2];}else{videoOrder=[1,2,3];}
             reorderVideos(videoOrder);
             document.getElementById('tab-btn-aulas').click();
             document.getElementById('video-aulas').scrollIntoView({ behavior: 'smooth' });
         });
         
-        document.getElementById('reset-btn').addEventListener('click', async function(){
+        document.getElementById('reset-btn').addEventListener('click', function(){
             if(confirm("Tem a certeza que quer apagar a sua meta atual e começar de novo?")){
-                const { error } = await supabase.from('profiles').update({
-                    goal_start_date: null, goal_end_date: null, goal_prompt: null, goal_type: null,
-                }).eq('id', user.id);
-                if (error) alert('Erro ao resetar a meta: ' + error.message);
-                else window.location.reload();
+                localStorage.clear(); window.location.reload();
             }
         });
 
         document.getElementById('copy-btn').addEventListener('click', function() {
             const textToCopy=document.getElementById('prompt-output').textContent;
             const textArea=document.createElement("textarea");
-            textArea.value=textToCopy; textArea.style.position="fixed";
+            textArea.value=textToCopy; textArea.style.position="fixed"; textArea.style.top="0";
             document.body.appendChild(textArea); textArea.focus(); textArea.select();
             try { document.execCommand('copy'); const btn=document.getElementById('copy-btn'); btn.textContent='Copiado!'; setTimeout(()=> {btn.textContent='Copiar Pedido';}, 2000); } catch(err) { console.error('Erro ao copiar', err); }
             document.body.removeChild(textArea);
         });
-        
-        document.getElementById('logout-btn').onclick = async () => {
-            await supabase.auth.signOut();
-            window.location.replace('login.html');
-        };
     });
 </script>
 </body>
 </html>
+
