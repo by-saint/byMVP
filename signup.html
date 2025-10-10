@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8"><title>Criar Conta</title><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"><style>body{background-color:#121212;color:#e0e0e0;font-family:'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:20px;box-sizing:border-box}.container{background-color:#1e1e1e;padding:40px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.5);width:100%;max-width:400px}h2{color:#fff;text-align:center}label{display:block;margin-top:15px;color:#bbb}input,select{width:100%;padding:12px;margin-top:8px;box-sizing:border-box;background-color:#333;border:1px solid #555;color:#fff;border-radius:6px}.btn{background:#007BFF;color:white;border:none;padding:14px;border-radius:6px;cursor:pointer;width:100%;font-size:16px;margin-top:20px;transition:background-color .3s}.btn:hover{background:#0056b3}.link{color:#007BFF;cursor:pointer;text-align:center;display:block;margin-top:15px;text-decoration:none}.msg{margin-top:15px;text-align:center;min-height:20px;color:#dc3545}</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Criar Nova Conta</h2>
+    <label>Email <input id="su-email" type="email" autocomplete="email" /></label>
+    <label>Senha <input id="su-password" type="password" autocomplete="new-password" /></label>
+    <label>Escolha seu nicho principal
+      <select id="su-niche">
+        <option value="saude">Saúde & Estética</option>
+        </select>
+    </label>
+    <button id="signup-btn" class="btn">Cadastrar</button>
+    <div id="su-msg" class="msg"></div>
+    <a href="login.html" class="link">Já tenho uma conta</a>
+  </div>
+
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+  const SUPABASE_URL = 'https://mrebmxvxlajqfgcpsvfv.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yZWJteHZ4bGFqcWZnY3BzdmZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk3Nzk0MjMsImV4cCI6MjA3NTM1NTQyM30.2oxAHxiYph6gvuIwunoypCJexHQbLExULpwqU0UWdDM';
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  document.getElementById('signup-btn').onclick = async () => {
+    const msgEl = document.getElementById('su-msg');
+    msgEl.textContent = 'A processar...';
+    
+    const email = document.getElementById('su-email').value.trim();
+    const password = document.getElementById('su-password').value;
+    const niche = document.getElementById('su-niche').value;
+
+    const { data, error } = await supabase.auth.signUp({ email, password });
+
+    if (error) {
+      msgEl.textContent = error.message;
+      return;
+    }
+    // O Supabase pode requerer confirmação de e-mail. Vamos tratar ambos os casos.
+    if (data.user && data.user.identities && data.user.identities.length > 0) {
+        const { error: profileError } = await supabase.from('profiles').insert({
+          id: data.user.id,
+          email: data.user.email,
+          niche: niche,
+          conversation_id: crypto.randomUUID(), // Gera o ID da conversa aqui
+        });
+
+        if (profileError) {
+          msgEl.textContent = `Erro ao criar perfil: ${profileError.message}`;
+        } else {
+          msgEl.style.color = '#28a745';
+          msgEl.textContent = 'Conta criada! Confirme o seu e-mail e depois faça login.';
+        }
+    } else {
+        msgEl.style.color = '#28a745';
+        msgEl.textContent = 'Verifique o seu e-mail para confirmar a sua conta antes de fazer login.';
+    }
+  };
+</script>
+</body>
+</html>
