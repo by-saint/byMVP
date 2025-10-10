@@ -31,7 +31,7 @@
     .iframe-container { border-radius: 12px; overflow: hidden; height: 700px; }
     #prompt-output { background-color: #2c2c2c; border: 1px solid #444; padding: 20px; font-family: monospace; white-space: pre-wrap; word-wrap: break-word; border-radius: 8px; }
     .copy-button { display: block; width: 200px; margin: 20px auto 0 auto; padding: 10px 15px; background-color: #007BFF; color: white; border: none; border-radius: 8px; cursor: pointer; }
-    .progress-section { margin-bottom: 40px; padding: 20px; background-color: #2C2C2C; border-radius: 10px; }
+    .progress-section { margin-top: 40px; padding: 20px; background-color: #2C2C2C; border-radius: 10px; }
     .progress-bar-container { width: 100%; background-color: #444; border-radius: 10px; overflow: hidden; }
     .progress-bar { width: 0%; background-color: #007BFF; height: 20px; transition: width 0.5s ease-in-out; }
     .progress-labels { display: flex; justify-content: space-between; font-size: 12px; color: #aaa; margin-top: 5px; }
@@ -41,7 +41,7 @@
     .reset-button { background: none; border: 1px solid #555; color: #aaa; padding: 8px 15px; cursor: pointer; display: inline-block; border-radius: 6px; transition: background-color 0.3s; }
     .reset-button:hover { background-color: #444; }
     .text-glow-blue { text-shadow: 0 0 8px rgba(0, 198, 255, 0.6); }
-    .playlist-section { text-align: center; margin: 40px 0; }
+    .playlist-section { text-align: center; margin-top: 40px; }
     .playlist-btn { background-color: #007BFF; color: white; border: none; padding: 12px 24px; font-size: 1.1em; cursor: pointer; border-radius: 8px; }
     .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 25px; border-radius: 12px; }
     .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
@@ -91,6 +91,20 @@
         </div>
         <div class="results-wrapper" id="results-wrapper" style="display: none;">
              <div class="results-container">
+                <h2>Seu Plano de Ação</h2>
+                <pre id="prompt-output"></pre>
+                <button id="copy-btn" class="copy-button">Copiar Pedido</button>
+                
+                <h3>Comece sua Conversa com a IA</h3>
+                <p style="text-align: center; margin-top: -10px; margin-bottom: 20px; color: #bbb;">Copie o pedido acima e cole no chat para receber o seu plano personalizado.</p>
+                <div id="dify-container" class="iframe-container"></div>
+
+                <div class="playlist-section" id="playlist-section" style="display: none;">
+                    <h4>Roteiro de Aulas Sugerido</h4>
+                    <p style="color: #bbb; margin-top: -10px;">Com base na sua meta, preparámos um roteiro para acelerar os seus resultados.</p>
+                    <button id="playlist-btn" class="playlist-btn">Ver seu Roteiro de Aulas</button>
+                </div>
+                
                 <div class="progress-section">
                     <h3>Sua Jornada</h3>
                     <div class="progress-bar-container"><div id="progress-bar" class="progress-bar"></div></div>
@@ -98,12 +112,6 @@
                     <div class="countdown-container"><div id="countdown-days" class="countdown-days"></div><div class="countdown-label">dias para mudar de vida</div></div>
                     <div style="text-align:center"><button id="reset-btn" class="reset-button">Definir Nova Meta</button></div>
                 </div>
-                <h2>Seu Plano de Ação</h2>
-                <pre id="prompt-output"></pre>
-                <button id="copy-btn" class="copy-button">Copiar Pedido</button>
-                <div class="playlist-section" id="playlist-section" style="display: none;"><p>Temos um roteiro de aulas para si!</p><button id="playlist-btn" class="playlist-btn">Ver Roteiro de Aulas</button></div>
-                <h3>Comece sua Conversa com a IA</h3>
-                <div id="dify-container" class="iframe-container"></div>
             </div>
         </div>
     </div>
@@ -126,10 +134,18 @@
     function getEaster(year) { const a=year%19,b=Math.floor(year/100),c=year%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),month=Math.floor((h+l-7*m+114)/31),day=((h+l-7*m+114)%31)+1; return new Date(year, month - 1, day); }
     function calculateEndDate(prazoText) { const now = new Date(); const year = now.getFullYear(); let prazoLower = prazoText.toLowerCase(); let match = prazoLower.match(/(\d+)\s+mes(es)?/); if (match) { let d=new Date(); d.setMonth(d.getMonth()+parseInt(match[1],10)); return d; } match = prazoLower.match(/(\d+)\s+dia(s)?/); if (match) { let d=new Date(); d.setDate(d.getDate()+parseInt(match[1],10)); return d; } if (prazoLower.includes('verao')||prazoLower.includes('verão')) { const s=new Date(year,11,21); return now<s?s:new Date(year+1,11,21); } if (prazoLower.includes('natal')) { const c=new Date(year,11,25); return now<c?c:new Date(year+1,11,25); } if (prazoLower.includes('ano novo')) { return new Date(year+1,0,1); } if (prazoLower.includes('pascoa')||prazoLower.includes('páscoa')) { const e=getEaster(year); return now<e?e:getEaster(year+1); } return null; }
     function displayProgress(startDate, endDate) { const now = new Date(); now.setHours(0,0,0,0); const sDate = new Date(startDate); sDate.setHours(0,0,0,0); const eDate = new Date(endDate); eDate.setHours(0,0,0,0); const totalDuration=eDate.getTime()-sDate.getTime(), elapsedDuration=now.getTime()-sDate.getTime(); const daysRemaining=Math.ceil((eDate-now)/(1000*60*60*24)); let progressPercentage=(elapsedDuration/totalDuration)*100; if(progressPercentage<0)progressPercentage=0; if(progressPercentage>100)progressPercentage=100; document.getElementById('progress-bar').style.width=`${progressPercentage}%`; document.getElementById('start-date-label').textContent=sDate.toLocaleDateString('pt-BR'); document.getElementById('end-date-label').textContent=eDate.toLocaleDateString('pt-BR'); document.getElementById('countdown-days').textContent=daysRemaining>=0?daysRemaining:0; document.getElementById('form-wrapper').style.display='none'; document.getElementById('results-wrapper').style.display='block'; document.getElementById('reset-btn').style.display='inline-block'; }
-    function analyzeGoal(text) { const lowerText=text.toLowerCase(),e=['emagrecer','perder peso','secar','definir','perder gordura','definição'],m=['ganhar musculo','hipertrofia','sheipado','crescer','massa muscular','ficar forte']; const hasE=e.some(k=>lowerText.includes(k)),hasM=m.some(k=>lowerText.includes(k)); if(hasE&&!hasM)return 'emagrecer'; if(!hasE&&hasM)return 'musculo'; return 'ambos'; }
+    function analyzeGoal(text) {
+        const lowerText = text.toLowerCase();
+        const emagrecerKeywords = ['emagrecer', 'perder peso', 'secar', 'definir', 'perder gordura', 'definição', 'emagrecimento'];
+        const musculoKeywords = ['ganhar musculo', 'hipertrofia', 'sheipado', 'crescer', 'massa muscular', 'ficar forte', 'músculo'];
+        const hasEmagrecer = emagrecerKeywords.some(keyword => lowerText.includes(keyword));
+        const hasMusculo = musculoKeywords.some(keyword => lowerText.includes(keyword));
+        if (hasEmagrecer && !hasMusculo) return 'emagrecer';
+        if (!hasEmagrecer && hasMusculo) return 'musculo';
+        return 'ambos'; // Se tiver ambos, ou nenhum, o roteiro geral é o mais seguro
+    }
     function reorderVideos(order) { const c=document.getElementById('video-aulas'),v={1:document.getElementById('video-block-1'),2:document.getElementById('video-block-2'),3:document.getElementById('video-block-3')}; Object.values(v).forEach(b=>b.remove()); order.forEach(i=>c.appendChild(v[i])); }
 
-    // --- INICIALIZAÇÃO DA PÁGINA ---
     document.addEventListener('DOMContentLoaded', async () => {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) { window.location.replace('login.html'); return; }
@@ -160,7 +176,6 @@
             };
         }
         
-        // --- EVENT LISTENERS ---
         const tabButtons = Array.from(document.querySelectorAll('.tab-button'));
         let currentTabIndex = 0;
         function switchTab(index) {
@@ -192,11 +207,37 @@
             const objetivoText = formElements.objetivo.value;
             const goalType = analyzeGoal(objetivoText);
 
-            const formData={objetivo:objetivoText,prazo:prazoText,sexo:formElements.sexo.value,altura:formElements.altura.value,peso:formElements.peso.value,idade:formElements.idade.value,disponibilidade:formElements.disponibilidade.value,local_treino:formElements.local_treino.value,orcamento:formElements.orcamento.value,uso_suplemento:formElements.uso_suplemento.value,quais_suplementos:formElements.quais_suplementos.value,nivel:formElements.nivel.value};
+            const daysRemaining = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+            const prazoOtimizado = `${daysRemaining} dias (originalmente: ${prazoText})`;
+
+            const formData={objetivo:objetivoText,prazo:prazoOtimizado,sexo:formElements.sexo.value,altura:formElements.altura.value,peso:formElements.peso.value,idade:formElements.idade.value,disponibilidade:formElements.disponibilidade.value,local_treino:formElements.local_treino.value,orcamento:formElements.orcamento.value,uso_suplemento:formElements.uso_suplemento.value,quais_suplementos:formElements.quais_suplementos.value,nivel:formElements.nivel.value};
             let suplementoInfo=`Pretende usar suplementos: ${formData.uso_suplemento}.`;
             if(formData.uso_suplemento==='Sim'&&formData.quais_suplementos){suplementoInfo+=` Os suplementos são: ${formData.quais_suplementos}.`;}else if(formData.uso_suplemento==='Sim'){suplementoInfo+=` Ainda não decidi quais.`;}
-            const initialMessage=`Minha meta é: ${formData.objetivo}, com um prazo de ${formData.prazo}. Tenho ${formData.idade} anos, peso ${formData.peso}kg e meço ${formData.altura}m. Meu sexo é ${formData.sexo}, meu nível de experiência é ${formData.nivel}, vou treinar na ${formData.local_treino} e tenho disponibilidade para treinar ${formData.disponibilidade} dias por semana. Meu orçamento mensal para dieta e suplementos é de R$${formData.orcamento}. ${suplementoInfo} Por favor, gere meu plano personalizado com base nisso.`.trim();
             
+            const initialMessage = `
+**GERAR PLANO DE AÇÃO COMPLETO**
+
+**INSTRUÇÃO:** Aja como um coach de elite e crie um plano de ação detalhado com base nos seguintes dados do utilizador:
+
+**- Objetivo Principal:** ${formData.objetivo}
+**- Prazo para a Meta:** ${formData.prazo}
+
+**- Perfil do Utilizador:**
+  - Idade: ${formData.idade} anos
+  - Sexo: ${formData.sexo}
+  - Peso: ${formData.peso} kg
+  - Altura: ${formData.altura} m
+  - Nível de Experiência: ${formData.nivel}
+
+**- Logística e Recursos:**
+  - Disponibilidade: ${formData.disponibilidade} dias/semana
+  - Local de Treino: ${formData.local_treino}
+  - Orçamento Mensal (Dieta/Sups): R$${formData.orcamento}
+  - ${suplementoInfo}
+
+**TAREFA:** Crie um plano prescritivo e completo, abordando treino, dieta e recomendações de estilo de vida para atingir a meta no prazo estipulado.
+`.trim();
+
             const { error } = await supabase.from('profiles').update({
                 goal_start_date: startDate.toISOString(),
                 goal_end_date: endDate.toISOString(),
