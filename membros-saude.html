@@ -42,8 +42,7 @@
     .reset-button:hover { background-color: #444; }
     .text-glow-blue { text-shadow: 0 0 8px rgba(0, 198, 255, 0.6); }
     .playlist-section { text-align: center; margin: 40px 0; }
-    .playlist-btn { background-color: #007BFF; color: white; border: none; padding: 12px 24px; font-size: 1.1em; cursor: pointer; border-radius: 8px; transition: background-color 0.3s; }
-    .playlist-btn:hover { background-color: #0056b3; }
+    .playlist-btn { background-color: #007BFF; color: white; border: none; padding: 12px 24px; font-size: 1.1em; cursor: pointer; border-radius: 8px; }
     .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 25px; border-radius: 12px; }
     .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
   </style>
@@ -130,7 +129,7 @@
     function analyzeGoal(text) { const lowerText=text.toLowerCase(),e=['emagrecer','perder peso','secar','definir','perder gordura','definição'],m=['ganhar musculo','hipertrofia','sheipado','crescer','massa muscular','ficar forte']; const hasE=e.some(k=>lowerText.includes(k)),hasM=m.some(k=>lowerText.includes(k)); if(hasE&&!hasM)return 'emagrecer'; if(!hasE&&hasM)return 'musculo'; return 'ambos'; }
     function reorderVideos(order) { const c=document.getElementById('video-aulas'),v={1:document.getElementById('video-block-1'),2:document.getElementById('video-block-2'),3:document.getElementById('video-block-3')}; Object.values(v).forEach(b=>b.remove()); order.forEach(i=>c.appendChild(v[i])); }
 
-    // --- INICIALIZAÇÃO E EVENTOS ---
+    // --- INICIALIZAÇÃO DA PÁGINA ---
     document.addEventListener('DOMContentLoaded', async () => {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) { window.location.replace('login.html'); return; }
@@ -161,6 +160,7 @@
             };
         }
         
+        // --- EVENT LISTENERS ---
         const tabButtons = Array.from(document.querySelectorAll('.tab-button'));
         let currentTabIndex = 0;
         function switchTab(index) {
@@ -214,9 +214,8 @@
         });
 
         document.getElementById('playlist-btn').addEventListener('click', function() {
-            const goalType = profile.goal_type; 
             let videoOrder;
-            if(goalType==='emagrecer'){videoOrder=[3,2,1];}else if(goalType==='musculo'){videoOrder=[3,1,2];}else{videoOrder=[1,2,3];}
+            if(profile.goal_type==='emagrecer'){videoOrder=[3,2,1];}else if(profile.goal_type==='musculo'){videoOrder=[3,1,2];}else{videoOrder=[1,2,3];}
             reorderVideos(videoOrder);
             document.getElementById('tab-btn-aulas').click();
             document.getElementById('video-aulas').scrollIntoView({ behavior: 'smooth' });
