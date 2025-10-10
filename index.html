@@ -1,36 +1,38 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8">
-  <title>byMVP - Landing</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>
-    body { font-family: Arial, sans-serif; padding:20px; max-width:900px; margin:0 auto; }
-    .hero { text-align:center; padding:40px 10px; }
-    .btn { background:#0b74de; color:#fff; padding:12px 18px; border-radius:6px; text-decoration:none; display:inline-block }
-  </style>
+  <meta charset="utf-8"><title>A Carregar...</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{background-color:#121212;color:#fff;font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}</style>
 </head>
 <body>
-  <div class="hero">
-    <h1>Transforme sua jornada com nossa plataforma personalizada</h1>
-    <p>Aulas em vídeo + IA vertical que cria um plano passo a passo para seu objetivo.</p>
-    <!-- Substitua o href pelo link do produto do Kiwify -->
-    <a class="btn" href="#" target="_blank" rel="noopener">Assinar agora — Acesso às aulas + IA</a>
-    <p style="margin-top:10px; font-size:14px;">Após a compra você será redirecionado para a página de login e escolha do nicho.</p>
-  </div>
+  <p>A verificar a sua sessão...</p>
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+  const SUPABASE_URL = 'https://mrebmxvxlajqfgcpsvfv.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yZWJteHZ4bGFqcWZnY3BzdmZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk3Nzk0MjMsImV4cCI6MjA3NTM1NTQyM30.2oxAHxiYph6gvuIwunoypCJexHQbLExULpwqU0UWdDM';
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  <section>
-    <h2>O que inclui</h2>
-    <ul>
-      <li>Aulas organizadas por módulos</li>
-      <li>IA personalizada que gera seu plano</li>
-      <li>Assinatura mensal; cancele quando desejar</li>
-      <li>Sem necessidade de instalar nada</li>
-    </ul>
-  </section>
-
-  <footer style="margin-top:30px; font-size:12px; color:#666;">
-    <p>© 2025 byMVP. Política de Privacidade: coletamos apenas email para controle de acesso.</p>
-  </footer>
+  async function checkSessionAndRedirect() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      window.location.replace('login.html');
+      return;
+    }
+    const { data: profile } = await supabase.from('profiles').select('niche').eq('id', session.user.id).single();
+    if (profile) {
+      if (profile.niche === 'saude') window.location.replace('membros-saude.html');
+      // Adicione mais `else if` aqui para futuros nichos
+      else { 
+        alert('Nicho não reconhecido. A terminar sessão.');
+        await supabase.auth.signOut();
+        window.location.replace('login.html');
+      }
+    } else {
+      alert('Perfil não encontrado. A terminar sessão.');
+      await supabase.auth.signOut();
+      window.location.replace('login.html');
+    }
+  }
+  checkSessionAndRedirect();
+</script>
 </body>
 </html>
